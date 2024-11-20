@@ -34,8 +34,20 @@ public class Task4 {
     }
 
     static String solveEquation(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        if (a == 0 && b == 0 && c == 0) {
+            return "Бесконечное множество решений.";
+        }
+
+        double discrim = b * b - 4 * a * c;
+
+        if (discrim < 0) {
+            return "Количество решений: 0.";
+        } else if (discrim == 0) {
+            return String.format("Количество решений: 1. Корень: %f", -b / (2 * a));
+        } else {
+            return String.format("Количество решений: 2. Корни: %f;%f",
+                    (-b - Math.sqrt(discrim)) / (2 * a), (-b + Math.sqrt(discrim)) / (2 * a));
+        }
     }
 }
