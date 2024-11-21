@@ -11,6 +11,17 @@ package com.walking.intensive.chapter1.task5;
 public class Task5 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+
+    }
+
+    /* Не знаю можно ли так, но вот:
+     * Моя функция определения градации(большая, средняя, меньшая) сторон.  */
+    static double[] getGradeSide(double a, double b, double c) {
+        double maxSide = Math.max(Math.max(a, b), c);
+        double minSide = Math.min(Math.min(a, b), c);
+        double meanSide = a + b + c - maxSide - minSide;
+
+        return new double[]{maxSide, meanSide, minSide};
     }
 
     /**
@@ -23,11 +34,15 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaByHeron(double a, double b, double c) {
-        if (a <= 0 || b <= 0 || c <= 0) {
+
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
             return -1;
         }
 
         double p = (a + b + c) / 2;
+
         return Math.sqrt(p * (p - a) * (p - b) * (p - c));
     }
 
@@ -39,12 +54,16 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getHeights(double a, double b, double c) {
-        if (a <= 0 || b <= 0 || c <= 0) {
+
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
             return new double[0];
         }
 
-        double s = getAreaByHeron(a, b, c);
-        double[] values = {2 * s / a, 2 * s / b, 2 * s / c};
+        double area = getAreaByHeron(a, b, c);
+
+        return new double[]{2 * area / num[0], 2 * area / num[1], 2 * area / num[2]};
     }
 
     /**
@@ -55,9 +74,15 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getMedians(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return new double[0];
+        }
+
+        return new double[]{0.5 * Math.sqrt(2 * num[1] + 2 * num[2] - num[0]), 0.5 * Math.sqrt(2 * num[0] + 2 * num[2] - num[1]),
+                0.5 * Math.sqrt(2 * num[0] + 2 * num[1] - num[2])};
     }
 
     /**
@@ -68,9 +93,18 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getBisectors(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return new double[0];
+        }
+
+        double perimeter = a + b + c;
+
+        return new double[]{Math.sqrt(num[1] * num[2] * perimeter * (num[1] + num[2] - num[0])) / (num[1] + num[2]),
+                Math.sqrt(num[0] * num[2] * perimeter * (num[0] + num[2] - num[1])) / (num[0] + num[2]),
+                Math.sqrt(num[1] * num[0] * perimeter * (num[1] + num[0] - num[2])) / (num[1] + num[0])};
     }
 
     /**
@@ -81,9 +115,16 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать пустой массив нулевой длины.
      */
     static double[] getAngles(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return null; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return new double[0];
+        }
+
+        return new double[]{Math.acos((num[1] * num[1] + num[0] * num[0] - num[2] * num[2]) / (2 * num[1] * num[0])) * 180 / Math.PI,
+                Math.acos((num[0] * num[0] + num[2] * num[2] - num[1] * num[1]) / (2 * num[0] * num[2])) * 180 / Math.PI,
+                Math.acos((num[1] * num[1] + num[2] * num[2] - num[0] * num[0]) / (2 * num[1] * num[2])) * 180 / Math.PI,};
     }
 
     /**
@@ -94,9 +135,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getInscribedCircleRadius(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return 0; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return -1;
+        }
+
+        return 2 * getAreaByHeron(a, b, c) / (a + b + c);
     }
 
     /**
@@ -107,9 +153,14 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getCircumradius(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return 0; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return -1;
+        }
+
+        return a * b * c / (4 * getAreaByHeron(a, b, c));
     }
 
     /**
@@ -127,8 +178,13 @@ public class Task5 {
      * <p>Если входные данные некорректны - метод должен возвращать -1.
      */
     static double getAreaAdvanced(double a, double b, double c) {
-        //        Место для вашего кода
 
-        return 0; // Заглушка. При реализации - удалить
+        double[] num = getGradeSide(a, b, c);
+
+        if (num[0] >= num[1] + num[2]) {
+            return -1;
+        }
+
+        return 0.5 * a * b * Math.sqrt(1 - Math.pow((a * a + b * b - c * c) / (2 * a * b), 2));
     }
 }
