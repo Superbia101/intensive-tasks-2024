@@ -39,18 +39,26 @@ public class Task4 {
 
         if (a == 0 && b == 0 && c == 0) {
             return "Бесконечное множество решений.";
-        } else if (a == 0 && b == 0 || discrim < 0) {
-            return "Количество решений: 0.";
-        } else if (a == 0 && c == 0) {
-            return "Количество решений: 1. Корень: 0";
-        } else if (a == 0) {
-            return String.format("Количество решений: 1. Корень: %f", -c / b);
-        } else if (discrim == 0) {
-            return String.format("Количество решений: 1. Корень: %f", -b / (2 * a));
-        } else {
-            return String.format("Количество решений: 2. Корни: %f;%f",
-                    (-b - Math.sqrt(discrim)) / (2 * a), (-b + Math.sqrt(discrim)) / (2 * a));
         }
+
+        if (a == 0 && b == 0 || discrim < 0) {
+            return "Количество решений: 0.";
+        }
+
+        if (a == 0 && c == 0) {
+            return "Количество решений: 1. Корень: 0";
+        }
+
+        if (a == 0) {
+            return String.format("Количество решений: 1. Корень: %f", -c / b);
+        }
+
+        if (discrim == 0) {
+            return String.format("Количество решений: 1. Корень: %f", -b / (2 * a));
+        }
+
+        return String.format("Количество решений: 2. Корни: %f;%f",
+                    (-b - Math.sqrt(discrim)) / (2 * a), (-b + Math.sqrt(discrim)) / (2 * a));
 
     }
 }
