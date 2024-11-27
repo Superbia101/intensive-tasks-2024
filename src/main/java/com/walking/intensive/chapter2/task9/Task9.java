@@ -52,7 +52,7 @@ package com.walking.intensive.chapter2.task9;
 public class Task9 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(getPascalTriangle(15));
+        System.out.println(getPascalTriangle(18));
     }
 
     static int getPascalNum(int i, int j) {
@@ -60,41 +60,32 @@ public class Task9 {
     }
 
     static String getTriangleLine(int n) {
-        String str_line = "";
+        StringBuilder str_line = new StringBuilder();
         for (int j = 0; j <= n; j++) {
             if (j == n) {
-                str_line += getPascalNum(n, j);
+                str_line.append(getPascalNum(n, j));
             } else {
-                str_line += getPascalNum(n, j) + " ";
+                str_line.append(getPascalNum(n, j)).append(" ");
             }
         }
-//        str_line += " ";
-        return str_line;
+        return str_line.toString();
     }
 
     static String getPascalTriangle(int n) {
 
-        String text = "";
+        StringBuilder text = new StringBuilder();
         String max_len = getTriangleLine(n-1);
         int n_new = max_len.length();
 
         for (int i = 0; i < n; i++) {
 
             String i_len = getTriangleLine(i);
-
-            for (int j = 0; j < (n_new - i_len.length()) / 2; j++) {
-                text += " ";
-            }
-
-            text += i_len;
-
-            for (int j = 0; j < (n_new - i_len.length()) / 2; j++) {
-                text += " ";
-            }
-
-            text += "\n";
+            text.append(" ".repeat((n_new - i_len.length()) / 2));
+            text.append(i_len);
+            text.append(" ".repeat((n_new - i_len.length()) / 2));
+            text.append("\n");
         }
 
-        return text;
+        return text.toString();
     }
 }
