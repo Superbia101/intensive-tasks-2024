@@ -52,10 +52,49 @@ package com.walking.intensive.chapter2.task9;
 public class Task9 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+//        System.out.println(getPascalTriangle(15));
+    }
+
+    static int getPascalNum(int i, int j) {
+        return (j == 0 || j == i) ? 1 : getPascalNum(i - 1, j - 1) + getPascalNum(i - 1, j);
+    }
+
+    static String getTriangleLine(int n) {
+        String str_line = "";
+        for (int j = 0; j <= n; j++) {
+            if (j == n) {
+                str_line += getPascalNum(n, j);
+            } else {
+                str_line += getPascalNum(n, j) + " ";
+            }
+        }
+//        str_line += " ";
+        return str_line;
     }
 
     static String getPascalTriangle(int n) {
-        // Ваш код
-        return null;
+
+        String text = "";
+        String max_len = getTriangleLine(n-1);
+        int n_new = max_len.length();
+
+        for (int i = 0; i < n; i++) {
+
+            String i_len = getTriangleLine(i);
+
+            for (int j = 0; j < (n_new - i_len.length()) / 2; j++) {
+                text += " ";
+            }
+
+            text += i_len;
+
+            for (int j = 0; j < (n_new - i_len.length()) / 2; j++) {
+                text += " ";
+            }
+
+            text += "\n";
+        }
+
+        return text;
     }
 }
