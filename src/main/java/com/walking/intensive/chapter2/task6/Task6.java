@@ -24,16 +24,16 @@ public class Task6 {
         if (0 >= m || 0 >= n) {
             return -1;
         }
-        int value;
+        int Gcd;
 
-//        value = Math.max(m, n);
+//        Gcd = Math.max(m, n);
 //        // Брут форс!)
-//        while (!(value % m == 0 && value % n == 0)) {
-//            value +=1;
+//        while (!(Gcd % m == 0 && Gcd % n == 0)) {
+//            Gcd +=1;
 //        }
 
-        value = m * n / getGcd(m, n);
-        return value;
+        Gcd = m / getGcd(m, n) * n;
+        return Gcd;
     }
 
     /**
