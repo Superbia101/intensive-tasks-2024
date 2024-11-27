@@ -34,16 +34,18 @@ public class Task7 {
 
     static int getPossibleFriendlyNumber(int num) {
 
-        int sum = 1, div = 2;
+        int PossibleFriendlyNumber = 1;
 
-        while (div < num / div) {
-            if (num % div == 0) {
-                sum += div != num / div ? div + num / div : div;
+        for (int divider = 2; divider < num / divider; divider++) {
+
+            if (num % divider == 0) {
+                PossibleFriendlyNumber += divider != num / divider ? divider + num / divider : divider;
             }
-            div += 1;
         }
-        return sum;
+
+        return PossibleFriendlyNumber;
     }
+
 
     static int getFriendlyPair(int n) {
 
@@ -51,23 +53,24 @@ public class Task7 {
             return -1;
         }
 
-        int possible_friendly_number, friendly_number = 0, sum = 0;
+        int getPossibleFriendlyNumber, FriendlyPair = 0, sum = 0;
 
         for (int i = 0; i < n; i++) {
-            possible_friendly_number = getPossibleFriendlyNumber(i);
+            getPossibleFriendlyNumber = getPossibleFriendlyNumber(i);
 
-            if (i == getPossibleFriendlyNumber(possible_friendly_number) && i != possible_friendly_number) {
+            if (i == getPossibleFriendlyNumber(getPossibleFriendlyNumber) && i != getPossibleFriendlyNumber) {
 
-                if (Math.max(possible_friendly_number, i) < n) {
+                if (Math.max(getPossibleFriendlyNumber, i) < n) {
 
-                    if (sum < i + possible_friendly_number) {
+                    if (sum < i + getPossibleFriendlyNumber) {
 
-                        sum = i + possible_friendly_number;
-                        friendly_number = Math.max(possible_friendly_number, i);
+                        sum = i + getPossibleFriendlyNumber;
+                        FriendlyPair = Math.max(getPossibleFriendlyNumber, i);
                     }
                 }
             }
         }
-        return friendly_number;
+
+        return FriendlyPair;
     }
 }
