@@ -24,19 +24,26 @@ public class Task8 {
 //        System.out.println(getHappyTicketChance());
     }
 
-    static double getHappyTicketChance() {
 
-        int value = 0;
+    static boolean isEqual(int num) {
+        int temp = num / 1000;
+        int sumFirstThird = num % 10 + (num % 100) / 10 + (num % 1000) / 100;
+        int sumSecondThird = temp % 10 + (temp % 100) / 10 + (temp % 1000) / 100;
+
+        return sumFirstThird == sumSecondThird;
+    }
+
+
+    static double getHappyTicketChance() {
+        int HappyTicketChance = 0;
 
         for (int i = 0; i < 1000000; i++) {
-            int temp = i / 1000;
-            int num_1_3 = i % 10 + (i % 100) / 10 + (i % 1000) / 100;
-            int num_4_6 = temp % 10 + (temp % 100) / 10 + (temp % 1000) / 100;
 
-            if (num_1_3 == num_4_6) {
-                value += 1;
+            if (isEqual(i)) {
+                HappyTicketChance += 1;
             }
         }
-        return (double) value / 1000000;
+
+        return (double) HappyTicketChance / 1000000;
     }
 }
