@@ -19,25 +19,24 @@ public class Task10 {
     }
 
     static boolean isPalindrome(String inputString) {
-
         if (inputString == null || inputString.length() < 2) {
             return false;
         }
 
         // Регулярные выражения.
         // Я их немного знаю по другому языку, погуглил реализацию на Java
-        String text = inputString.toLowerCase();
+        String palindrome = inputString.toLowerCase();
         Pattern pattern = Pattern.compile("[.,:;!? -]");
-        Matcher matcher = pattern.matcher(text);
-        text = matcher.replaceAll("");
+        Matcher matcher = pattern.matcher(palindrome);
+        palindrome = matcher.replaceAll("");
 
-        int length = text.length(), value = 0;
+        int lengthPalindrome = palindrome.length(), letterMatches = 0;
 
-        for (int i = 0; i < length / 2; i++) {
-            if (text.charAt(i) == text.charAt(length - 1 - i)) {
-                value += 1;
+        for (int i = 0; i < lengthPalindrome / 2; i++) {
+            if (palindrome.charAt(i) == palindrome.charAt(lengthPalindrome - 1 - i)) {
+                letterMatches += 1;
             }
         }
-        return value >= length / 2;
+        return letterMatches >= lengthPalindrome / 2;
     }
 }
