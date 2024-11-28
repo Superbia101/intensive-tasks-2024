@@ -52,7 +52,7 @@ package com.walking.intensive.chapter2.task9;
 public class Task9 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        System.out.println(getPascalTriangle(18));
+//        System.out.println(getPascalTriangle(18));
     }
 
     static int getPascalNum(int i, int j) {
@@ -60,32 +60,33 @@ public class Task9 {
     }
 
     static String getTriangleLine(int n) {
-        StringBuilder str_line = new StringBuilder();
+        StringBuilder TriangleLine = new StringBuilder();
+
         for (int j = 0; j <= n; j++) {
             if (j == n) {
-                str_line.append(getPascalNum(n, j));
+                TriangleLine.append(getPascalNum(n, j));
             } else {
-                str_line.append(getPascalNum(n, j)).append(" ");
+                TriangleLine.append(getPascalNum(n, j)).append(" ");
             }
         }
-        return str_line.toString();
+
+        return TriangleLine.toString();
     }
 
-    static String getPascalTriangle(int n) {
 
-        StringBuilder text = new StringBuilder();
-        String max_len = getTriangleLine(n-1);
-        int n_new = max_len.length();
+    static String getPascalTriangle(int n) {
+        StringBuilder PascalTriangle = new StringBuilder();
+        String maxTriangleLine = getTriangleLine(n - 1);
+        int nNew = maxTriangleLine.length();
 
         for (int i = 0; i < n; i++) {
-
-            String i_len = getTriangleLine(i);
-            text.append(" ".repeat((n_new - i_len.length()) / 2));
-            text.append(i_len);
-            text.append(" ".repeat((n_new - i_len.length()) / 2));
-            text.append("\n");
+            String TriangleLine = getTriangleLine(i);
+            PascalTriangle.append(" ".repeat((nNew - TriangleLine.length()) / 2));
+            PascalTriangle.append(TriangleLine);
+            PascalTriangle.append(" ".repeat((nNew - TriangleLine.length()) / 2));
+            PascalTriangle.append("\n");
         }
 
-        return text.toString();
+        return PascalTriangle.toString();
     }
 }
