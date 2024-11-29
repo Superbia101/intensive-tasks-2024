@@ -52,41 +52,45 @@ package com.walking.intensive.chapter2.task9;
 public class Task9 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(getPascalTriangle(18));
-    }
-
-    static int getPascalNum(int i, int j) {
-        return (j == 0 || j == i) ? 1 : getPascalNum(i - 1, j - 1) + getPascalNum(i - 1, j);
+//        long startTime = System.nanoTime();
+        System.out.println(getPascalTriangle(40));
+//        long endTime = System.nanoTime();
+//        long duration = (endTime - startTime);
+//        System.out.println(duration / 1_000_000);
     }
 
     static String getTriangleLine(int n) {
-        StringBuilder TriangleLine = new StringBuilder();
+        StringBuilder triangleLine = new StringBuilder();
 
         for (int j = 0; j <= n; j++) {
             if (j == n) {
-                TriangleLine.append(getPascalNum(n, j));
+                triangleLine.append(getPascalNum(n, j));
             } else {
-                TriangleLine.append(getPascalNum(n, j)).append(" ");
+                triangleLine.append(getPascalNum(n, j)).append(" ");
             }
         }
 
-        return TriangleLine.toString();
+        return triangleLine.toString();
     }
 
 
     static String getPascalTriangle(int n) {
-        StringBuilder PascalTriangle = new StringBuilder();
+        StringBuilder pascalTriangle = new StringBuilder();
         String maxTriangleLine = getTriangleLine(n - 1);
         int nNew = maxTriangleLine.length();
 
         for (int i = 0; i < n; i++) {
-            String TriangleLine = getTriangleLine(i);
-            PascalTriangle.append(" ".repeat((nNew - TriangleLine.length()) / 2));
-            PascalTriangle.append(TriangleLine);
-            PascalTriangle.append(" ".repeat((nNew - TriangleLine.length()) / 2));
-            PascalTriangle.append("\n");
+            String triangleLine = getTriangleLine(i);
+            pascalTriangle.append(" ".repeat((nNew - triangleLine.length()) / 2));
+            pascalTriangle.append(triangleLine);
+            pascalTriangle.append(" ".repeat((nNew - triangleLine.length()) / 2));
+            pascalTriangle.append("\n");
         }
 
-        return PascalTriangle.toString();
+        return pascalTriangle.toString();
+    }
+
+    static int getPascalNum(int i, int j) {
+        return (j == 0 || j == i) ? 1 : getPascalNum(i - 1, j - 1) + getPascalNum(i - 1, j);
     }
 }
