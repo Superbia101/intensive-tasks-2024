@@ -61,27 +61,11 @@ public class Task11 {
             }
         }
 
-        int quantityOddSubArrays = 0;
-
-        for (int i = 1; i <= lenArray; i += 2) {
-            quantityOddSubArrays += lenArray + 1 - i;
-        }
-
-        int[][] subArrays = new int[quantityOddSubArrays][];
-        int numberSubArrays = 0;
+        int oddSubArraysElementsSum = 0;
 
         for (int i = 1; i <= lenArray; i += 2) {
             for (int j = 0; j + i <= lenArray; j++) {
-                subArrays[numberSubArrays] = Arrays.copyOfRange(array, j, j + i);
-                numberSubArrays += 1;
-            }
-        }
-
-        int oddSubArraysElementsSum = 0;
-
-        for (int[] i : subArrays) {
-            for (int j : i) {
-                oddSubArraysElementsSum += j;
+                oddSubArraysElementsSum += Arrays.stream(Arrays.copyOfRange(array, j, j + i)).sum();
             }
         }
 
