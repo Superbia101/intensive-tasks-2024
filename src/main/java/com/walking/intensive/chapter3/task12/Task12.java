@@ -61,7 +61,7 @@ public class Task12 {
                 }
             }
         }
-
+        
         return movementsNumber;
     }
 }
