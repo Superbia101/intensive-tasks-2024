@@ -41,10 +41,63 @@ package com.walking.intensive.chapter3.task15;
 public class Task15 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+//        System.out.println(getMaxFloors(new int[][]{{3, 0, 8, 4}, {2, 4, 5, 7}, {9, 2, 6, 3}, {0, 3, 1, 0}}));
     }
 
     static int getMaxFloors(int[][] city) {
-        // Ваш код
-        return 0;
+        if (!isValidation(city)) {
+            return -1;
+        }
+
+        int lenCity = city.length;
+        int maxFloors = 0;
+        int[][] availableNumberFloors = new int[lenCity][2];
+
+        for (int i = 0; i < lenCity; i++) {
+            int maximumInLine = 0;
+            int maximumInColumn = 0;
+            for (int j = 0; j < lenCity; j++) {
+                maximumInLine = Math.max(maximumInLine, city[i][j]);
+                maximumInColumn = Math.max(maximumInColumn, city[j][i]);
+            }
+            availableNumberFloors[i][0] = maximumInLine;
+            availableNumberFloors[i][1] = maximumInColumn;
+        }
+
+        for (int i = 0; i < lenCity; i++) {
+            for (int j = 0; j < lenCity; j++) {
+                if (city[i][j] < availableNumberFloors[i][0] && city[i][j] < availableNumberFloors[j][1]) {
+                    maxFloors += Math.min(availableNumberFloors[i][0], availableNumberFloors[j][1]) - city[i][j];
+                }
+            }
+        }
+
+        return maxFloors;
+    }
+
+
+    static boolean isValidation(int[][] city) {
+        if (city.length == 0) {
+            return false;
+        }
+
+        int lenCity = city.length;
+        boolean validationFlag = true;
+
+        for (int i = 0; i < lenCity - 1; i++) {
+            if (city[i].length == lenCity) {
+                for (int j = 0; j < lenCity; j++) {
+                    if (city[i][j] < 0) {
+                        validationFlag = false;
+                        break;
+                    }
+                }
+            } else {
+                validationFlag = false;
+                break;
+            }
+        }
+
+        return validationFlag;
     }
 }
