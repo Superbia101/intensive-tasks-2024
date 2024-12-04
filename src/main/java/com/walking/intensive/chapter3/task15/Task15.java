@@ -75,7 +75,6 @@ public class Task15 {
         return maxFloors;
     }
 
-
     static boolean isValidation(int[][] city) {
         if (city.length == 0) {
             return false;
