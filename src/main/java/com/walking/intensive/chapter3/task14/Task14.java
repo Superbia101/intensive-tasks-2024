@@ -67,7 +67,6 @@ public class Task14 {
         return objectCounts;
     }
 
-
     static boolean isValidation(int[][] objectLocations, int[][] radars) {
         if (objectLocations.length == 0 || radars.length == 0) {
             return false;
