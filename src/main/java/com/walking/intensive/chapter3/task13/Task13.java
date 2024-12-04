@@ -54,14 +54,11 @@ public class Task13 {
     }
 
     static int getStepsCount(int[] plants, int wateringCanVolume) {
-        int lenGarden = plants.length;
-
-        for (int i : plants) {
-            if (i < 1 || wateringCanVolume <= 0 || i > wateringCanVolume) {
-                return -1;
-            }
+        if (!isValidation(plants, wateringCanVolume)) {
+            return -1;
         }
 
+        int lenGarden = plants.length;
         int stepsCount = 0;
         int waterForPlants = wateringCanVolume;
 
@@ -78,5 +75,15 @@ public class Task13 {
         }
 
         return stepsCount;
+    }
+
+    static boolean isValidation(int[] plants, int wateringCanVolume) {
+        for (int i : plants) {
+            if (i < 1 || wateringCanVolume <= 0 || i > wateringCanVolume) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
