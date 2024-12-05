@@ -41,27 +41,34 @@ package com.walking.intensive.chapter3.task12;
 public class Task12 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(Arrays.toString(getMovementsNumber("110")));
     }
 
     static int[] getMovementsNumber(String baskets) {
-        boolean validationBaskets = baskets.matches("[10]{2,}");
-
-        if (!validationBaskets) {
+        if (!isValidationBaskets(baskets)) {
             return new int[]{};
         }
 
-        int len = baskets.length();
-        int[] movementsNumber = new int[len];
+        int lengthBaskets = baskets.length();
+        int[] movementsNumber = new int[lengthBaskets];
 
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < lengthBaskets; i++) {
             if (baskets.charAt(i) == '1') {
-                for (int j = 0; j < len; j++) {
+                for (int j = 0; j < lengthBaskets; j++) {
                     movementsNumber[j] = movementsNumber[j] + Math.abs(i - j);
                 }
             }
         }
-        
+
         return movementsNumber;
+    }
+
+    static boolean isValidationBaskets(String baskets) {
+        for (int i = 0; i < baskets.length(); i++) {
+            if (baskets.charAt(i) != '0' && baskets.charAt(i) != '1') {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
