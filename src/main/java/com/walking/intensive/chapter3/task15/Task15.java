@@ -49,25 +49,26 @@ public class Task15 {
             return -1;
         }
 
-        int lenCity = city.length;
+        int lengthCity = city.length;
         int maxFloors = 0;
-        int[][] availableNumberFloors = new int[lenCity][2];
+        int[] arrayMaximumsLines = new int[lengthCity];
+        int[] arrayMaximumsColumns = new int[lengthCity];
 
-        for (int i = 0; i < lenCity; i++) {
+        for (int i = 0; i < lengthCity; i++) {
             int maximumInLine = 0;
             int maximumInColumn = 0;
-            for (int j = 0; j < lenCity; j++) {
+            for (int j = 0; j < lengthCity; j++) {
                 maximumInLine = Math.max(maximumInLine, city[i][j]);
                 maximumInColumn = Math.max(maximumInColumn, city[j][i]);
             }
-            availableNumberFloors[i][0] = maximumInLine;
-            availableNumberFloors[i][1] = maximumInColumn;
+            arrayMaximumsLines[i] = maximumInLine;
+            arrayMaximumsColumns[i] = maximumInColumn;
         }
 
-        for (int i = 0; i < lenCity; i++) {
-            for (int j = 0; j < lenCity; j++) {
-                if (city[i][j] < availableNumberFloors[i][0] && city[i][j] < availableNumberFloors[j][1]) {
-                    maxFloors += Math.min(availableNumberFloors[i][0], availableNumberFloors[j][1]) - city[i][j];
+        for (int i = 0; i < lengthCity; i++) {
+            for (int j = 0; j < lengthCity; j++) {
+                if (city[i][j] < arrayMaximumsLines[i] && city[i][j] < arrayMaximumsColumns[j]) {
+                    maxFloors += Math.min(arrayMaximumsLines[i], arrayMaximumsColumns[j]) - city[i][j];
                 }
             }
         }
@@ -81,22 +82,19 @@ public class Task15 {
         }
 
         int lenCity = city.length;
-        boolean validationFlag = true;
 
         for (int i = 0; i < lenCity - 1; i++) {
-            if (city[i].length == lenCity) {
-                for (int j = 0; j < lenCity; j++) {
-                    if (city[i][j] < 0) {
-                        validationFlag = false;
-                        break;
-                    }
+            if (city[i].length != lenCity) {
+                return false;
+            }
+
+            for (int j = 0; j < lenCity; j++) {
+                if (city[i][j] < 0) {
+                    return false;
                 }
-            } else {
-                validationFlag = false;
-                break;
             }
         }
 
-        return validationFlag;
+        return true;
     }
 }
