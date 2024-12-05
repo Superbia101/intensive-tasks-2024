@@ -56,10 +56,12 @@ public class Task14 {
         int countRadars = radars.length;
         int[] objectCounts = new int[countRadars];
 
-        for (int i = 0; i < countRadars; i++) {
-            for (int[] j : objectLocations) {
-                if (Math.pow(j[0] - radars[i][0], 2) + Math.pow(j[1] - radars[i][1], 2) <= Math.pow(radars[i][2], 2)) {
-                    objectCounts[i] += 1;
+        for (int numberRadars = 0; numberRadars < countRadars; numberRadars++) {
+            for (int[] objectLocation : objectLocations) {
+                double xCoordinate = Math.pow(objectLocation[0] - radars[numberRadars][0], 2);
+                double yCoordinate = Math.pow(objectLocation[1] - radars[numberRadars][1], 2);
+                if (xCoordinate + yCoordinate <= Math.pow(radars[numberRadars][2], 2)) {
+                    objectCounts[numberRadars] += 1;
                 }
             }
         }
@@ -72,22 +74,18 @@ public class Task14 {
             return false;
         }
 
-        boolean validationFlag = true;
-
-        for (int[] i : objectLocations) {
-            if (i.length != 2) {
-                validationFlag = false;
-                break;
+        for (int[] objectLocation : objectLocations) {
+            if (objectLocation.length != 2) {
+                return false;
             }
         }
 
-        for (int[] i : radars) {
-            if (i.length != 3 || i[2] < 0) {
-                validationFlag = false;
-                break;
+        for (int[] radar : radars) {
+            if (radar.length != 3 || radar[2] < 0) {
+                return false;
             }
         }
 
-        return validationFlag;
+        return true;
     }
 }
