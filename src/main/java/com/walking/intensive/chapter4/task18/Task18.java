@@ -23,7 +23,7 @@ package com.walking.intensive.chapter4.task18;
 public class Task18 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(find(new int[]{5, 10, 15, 20, 25, 30, 35, 40, 45, 50}, 45));
+        System.out.println(find(new int[]{5, 10}, 10));
     }
 
     /**
@@ -60,8 +60,13 @@ public class Task18 {
         switch (lengthArray) {
             case 0:
                 return -1;
-            case 1, 2:
+            case 1:
                 return girlAges[0];
+            case 2:
+                if (girlAges[1] > targetAge) {
+                    return girlAges[0];
+                }
+                return girlAges[1];
         }
 
         int middleElement = (lengthArray + 1) / 2 - 1;
