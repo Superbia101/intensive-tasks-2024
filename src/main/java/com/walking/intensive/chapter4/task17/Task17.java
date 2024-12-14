@@ -1,5 +1,7 @@
 package com.walking.intensive.chapter4.task17;
 
+import java.util.Arrays;
+
 import java.util.Random;
 
 /**
@@ -24,7 +26,7 @@ import java.util.Random;
 public class Task17 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(Arrays.toString(sortByQuicksort(new int[]{5, 1, 2, 3, 4, 5})));
+//        System.out.println(Arrays.toString(sortByQuicksort(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10})));
 //        System.out.println(getBenchmarkOn1000());
 //        System.out.println(getBenchmarkOn10000());
     }
@@ -50,21 +52,16 @@ public class Task17 {
         }
 
         int lengthArray = array.length;
-        int[] result = new int[lengthArray];
-        System.arraycopy(array, 0, result, 0, lengthArray);
-        int temporaryVariable;
 
         for (int i = 0; i < lengthArray; i++) {
             for (int j = 1; j < lengthArray - i; j++) {
-                if (result[j - 1] > result[j]) {
-                    temporaryVariable = result[j];
-                    result[j] = result[j - 1];
-                    result[j - 1] = temporaryVariable;
+                if (array[j - 1] > array[j]) {
+                    swapElementArray(array, j, j - 1);
                 }
             }
         }
 
-        return result;
+        return array;
     }
 
     /**
@@ -109,55 +106,20 @@ public class Task17 {
      */
     static int[] sortByQuicksort(int[] array) {
         int lengthArray = array.length;
-        int[] result = new int[lengthArray];
-        System.arraycopy(array, 0, result, 0, lengthArray);
-        int temporaryVariable;
 
         switch (lengthArray) {
-            case 0:
-                return new int[0];
-            case 1:
-                return result;
+            case 0, 1:
+                return array;
             case 2:
-                if (result[0] > result[1]) {
-                    temporaryVariable = result[0];
-                    result[0] = result[1];
-                    result[1] = temporaryVariable;
+                if (array[0] > array[1]) {
+                    swapElementArray(array, 0, 1);
                 }
-                return result;
+                return array;
         }
 
-        int[] maxMinElementArray = getMaxMinElementArray(result);
-        int maxElementArray = maxMinElementArray[0];
-        int minElementArray = maxMinElementArray[1];
-        int supportElement = (maxElementArray + minElementArray) / 2;
-        int i = 0;
-        int j = lengthArray - 1;
+        quickSort(array, 0, lengthArray - 1);
 
-        while (i <= j) {
-            if (result[i] < supportElement) {
-                i++;
-            } else {
-                if (result[j] <= supportElement) {
-                    temporaryVariable = result[i];
-                    result[i] = result[j];
-                    result[j] = temporaryVariable;
-                    i++;
-                }
-                j--;
-            }
-        }
-
-        int[] leftArray = new int[i];
-        int[] rightArray = new int[lengthArray - i];
-        System.arraycopy(result, 0, leftArray, 0, i);
-        System.arraycopy(result, i, rightArray, 0, lengthArray - i);
-        leftArray = sortByQuicksort(leftArray);
-        rightArray = sortByQuicksort(rightArray);
-        System.arraycopy(leftArray, 0, result, 0, leftArray.length);
-        System.arraycopy(rightArray, 0, result, leftArray.length, rightArray.length);
-
-        return result;
+        return array;
     }
 
     /**
@@ -215,15 +177,44 @@ public class Task17 {
         return (timeFinish1 - timeStart1) - (timeFinish2 - timeStart2);
     }
 
-    static int[] getMaxMinElementArray(int[] array) {
-        int maxElementArray = array[0];
-        int minElementArray = array[0];
+    private static int getSupportElementArray(int[] array, int indexStart, int indexEnd) {
+        int maxElementArray = array[indexStart];
+        int minElementArray = array[indexStart];
 
-        for (int j : array) {
-            maxElementArray = Math.max(maxElementArray, j);
-            minElementArray = Math.min(minElementArray, j);
+        for (int i = indexStart; i < indexEnd; i++) {
+            maxElementArray = Math.max(maxElementArray, array[i]);
+            minElementArray = Math.min(minElementArray, array[i]);
         }
 
-        return new int[]{maxElementArray, minElementArray};
+        return (maxElementArray + minElementArray) / 2;
+    }
+
+    private static void swapElementArray(int[] array, int indexNumArray1, int indexNumArray2) {
+        int temporaryVariable = array[indexNumArray1];
+        array[indexNumArray1] = array[indexNumArray2];
+        array[indexNumArray2] = temporaryVariable;
+    }
+
+    private static void quickSort(int[] array, int indexStart, int indexEnd) {
+        if (indexEnd - indexStart > 1) {
+            int supportElementArray = getSupportElementArray(array, indexStart, indexEnd);
+            int i = indexStart;
+            int j = indexEnd;
+
+            while (i <= j) {
+                if (array[i] < supportElementArray) {
+                    i++;
+                } else {
+                    if (array[j] <= supportElementArray) {
+                        swapElementArray(array, i, j);
+                        i++;
+                    }
+                    j--;
+                }
+            }
+
+            quickSort(array, indexStart, i - 1);
+            quickSort(array, i, indexEnd);
+        }
     }
 }
