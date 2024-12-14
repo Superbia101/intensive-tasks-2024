@@ -1,6 +1,6 @@
 package com.walking.intensive.chapter4.task17;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 import java.util.Random;
 
@@ -26,7 +26,7 @@ import java.util.Random;
 public class Task17 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-//        System.out.println(Arrays.toString(sortByQuicksort(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10})));
+//        System.out.println(Arrays.toString(sortByBubble(new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 10, 10, 10})));
 //        System.out.println(getBenchmarkOn1000());
 //        System.out.println(getBenchmarkOn10000());
     }
@@ -54,10 +54,16 @@ public class Task17 {
         int lengthArray = array.length;
 
         for (int i = 0; i < lengthArray; i++) {
+            int numberComparisons = 0;
             for (int j = 1; j < lengthArray - i; j++) {
                 if (array[j - 1] > array[j]) {
+                    numberComparisons = 0;
                     swapElementArray(array, j, j - 1);
                 }
+                numberComparisons++;
+            }
+            if (numberComparisons == lengthArray - i) {
+                break;
             }
         }
 
