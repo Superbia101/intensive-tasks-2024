@@ -25,6 +25,7 @@ package com.walking.intensive.chapter5.task20;
 public class Task20 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
+        System.out.println(getDeterminant(new int[][] {{0, 1, 2}, {3, 4, -5}, {6, 7, 8}}));
     }
 
     /**
@@ -40,8 +41,29 @@ public class Task20 {
      * До тех пор приходится находить обходные пути для обозначения ситуаций, когда что-то пошло не по плану.
      */
     static Integer getDeterminant(int[][] matrix) {
-        // Ваш код
-        return null;
+        if (!isValid(matrix)) {
+            return null;
+        }
+
+        int lengthMatrix = matrix.length;
+
+
+        if (lengthMatrix == 1) {
+            return matrix[0][0];
+        }
+
+        if (lengthMatrix == 2) {
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+        }
+
+        double determinant = 0;
+
+        for (int i = 0; i < lengthMatrix; i++) {
+            int[][] minorMatrix = getMinorMatrix(matrix, 0, i);
+            determinant += Math.pow(-1, i) * matrix[0][i] * getDeterminant(minorMatrix);
+        }
+
+        return (int) determinant;
     }
 
     /**
@@ -53,6 +75,41 @@ public class Task20 {
      * getDeterminant() должен использовать isValid().
      */
     static boolean isValid(int[][] matrix) {
-        return false;
+        int lengthMatrix = matrix.length;
+
+        if (lengthMatrix == 0) {
+            return false;
+        }
+
+        for (int[] line : matrix) {
+            if (matrix.length != line.length) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static int[][] getMinorMatrix(int[][] matrix, int numberDeletedLine, int numberDeletedColumn) {
+        int lenRowAndColumn = matrix.length;
+        int[][] newMatrix = new int[lenRowAndColumn - 1][lenRowAndColumn - 1];
+        int row = -1;
+
+        for (int i = 0; i < lenRowAndColumn; i++) {
+            if (i == numberDeletedLine)
+                continue;
+
+            row++;
+            int column = -1;
+
+            for (int j = 0; j < lenRowAndColumn; j++) {
+                if (j == numberDeletedColumn)
+                    continue;
+
+                newMatrix[row][++column] = matrix[i][j];
+            }
+        }
+
+        return newMatrix;
     }
 }
