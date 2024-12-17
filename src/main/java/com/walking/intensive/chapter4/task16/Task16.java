@@ -29,7 +29,7 @@ public class Task16 {
      * В остальных случаях - false.
      */
     static boolean isEqualSize(int[] arr1, int[] arr2) {
-        return arr1.length != 0 && arr2.length != 0 && arr1.length == arr2.length;
+        return arr1.length != 0 && arr1.length == arr2.length;
     }
 
     /**
@@ -40,17 +40,17 @@ public class Task16 {
      * <p>Идентичными считаются массивы одинаковой длины, для которых arr1[i] == arr2[i] для любого i.
      */
     static boolean isEquals(int[] arr1, int[] arr2) {
-        if (arr1.length == arr2.length) {
-            for (int i = 0; i < arr1.length; i++) {
-                if (arr1[i] != arr2[i]) {
-                    return false;
-                }
-            }
-
-            return true;
+        if (arr1.length != arr2.length) {
+            return false;
         }
 
-        return false;
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -313,11 +313,12 @@ public class Task16 {
         if (index > lengthArr - 1) {
             result = new int[lengthArr];
             System.arraycopy(arr, 0, result, 0, lengthArr);
-        } else {
-            result = new int[lengthArr - 1];
-            System.arraycopy(arr, 0, result, 0, index);
-            System.arraycopy(arr, index + 1, result, index, lengthArr - index - 1);
+            return result;
         }
+
+        result = new int[lengthArr - 1];
+        System.arraycopy(arr, 0, result, 0, index);
+        System.arraycopy(arr, index + 1, result, index, lengthArr - index - 1);
 
         return result;
     }
