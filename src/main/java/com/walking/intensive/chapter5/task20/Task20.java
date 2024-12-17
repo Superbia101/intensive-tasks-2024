@@ -25,7 +25,7 @@ package com.walking.intensive.chapter5.task20;
 public class Task20 {
     public static void main(String[] args) {
 //        Для собственных проверок можете делать любые изменения в этом методе
-        System.out.println(getDeterminant(new int[][] {{0, 1, 2}, {3, 4, -5}, {6, 7, 8}}));
+        System.out.println(getDeterminant(new int[][]{{0, 1, 2}, {3, 4, -5}, {6, 7, 8}}));
     }
 
     /**
@@ -46,7 +46,6 @@ public class Task20 {
         }
 
         int lengthMatrix = matrix.length;
-
 
         if (lengthMatrix == 1) {
             return matrix[0][0];
