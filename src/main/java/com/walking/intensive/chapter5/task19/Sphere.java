@@ -1,76 +1,56 @@
 package com.walking.intensive.chapter5.task19;
 
-public class Sphere {
-    private double x, y, z, R;
+import java.util.Arrays;
 
-    Sphere(double x, double y, double z, double R) {
-        setX(x);
-        setY(y);
-        setZ(z);
-        setR(R);
+public class Sphere {
+    private double[] centre = new double[3];
+    private double R;
+
+    Sphere(double[] coordinateCenter, double R) {
+        if (R > 0 && coordinateCenter.length == 3) {
+            this.centre = coordinateCenter;
+            this.R = R;
+        } else {
+            System.out.println("Неверное значение радиуса или координат. Радиус должен быть больше нуля, " +
+                    "координат центра должно быть три: x, y, z! Иной шар существовать не может.");
+        }
     }
 
-    static public boolean isIntersectSphere(Sphere object1, Sphere object2) {
-        if (object1 == object2){
+    public boolean isIntersectSphere(Sphere object) {
+        if (this == object) {
             System.out.println("Это тот же объект!");
             return true;
         }
 
-        double centersDifferenceInSquareX = Math.pow(object2.x - object1.x, 2);
-        double centersDifferenceInSquareY = Math.pow(object2.y - object1.y, 2);
-        double centersDifferenceInSquareZ = Math.pow(object2.z - object1.z, 2);
-        double lengthBetweenCenters = Math.sqrt(centersDifferenceInSquareX +
-                centersDifferenceInSquareY + centersDifferenceInSquareZ);
+        double lengthBetweenCenters = 0;
 
-        return lengthBetweenCenters <= object1.R + object2.R;
+        for (int i = 0; i < 3; i++) {
+            lengthBetweenCenters += Math.pow(object.centre[i] - this.centre[i], 2);
+        }
+
+        return Math.sqrt(lengthBetweenCenters) <= this.R + object.R;
     }
 
-    static public boolean isIncludedCoordinate(Sphere object, double x, double y, double z) {
-        double centersDifferenceInSquareX = Math.pow(x - object.x, 2);
-        double centersDifferenceInSquareY = Math.pow(y - object.y, 2);
-        double centersDifferenceInSquareZ = Math.pow(z - object.z, 2);
-        double lengthBetweenCoordinate = Math.sqrt(centersDifferenceInSquareX +
-                centersDifferenceInSquareY + centersDifferenceInSquareZ);
+    static public boolean isIncludedCoordinate(Sphere object, double[] coordinate) {
+        if (coordinate.length != 3) {
+            System.out.println("Неверное значение координат - их должно быть три: x, y, z!");
+            return false;
+        }
 
-        return lengthBetweenCoordinate <= object.R;
-    }
+        double lengthBetweenCoordinate = 0;
 
-    public double getX() {
-        return x;
-    }
+        for (int i = 0; i < 3; i++) {
+            lengthBetweenCoordinate += Math.pow(coordinate[i] - object.centre[i], 2);
+        }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getZ() {
-        return z;
-    }
-
-    public void setZ(double z) {
-        this.z = z;
+        return Math.sqrt(lengthBetweenCoordinate) <= object.R;
     }
 
     public double getR() {
         return R;
     }
 
-    public void setR(double R) {
-        try {
-            if (R <= 0) {
-                throw new Exception("Неверное значение радиуса! Такой шар существовать не может.");
-            }
-            this.R = R;
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+    public double[] getCentre() {
+        return centre;
     }
 }
