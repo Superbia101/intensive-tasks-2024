@@ -1,7 +1,5 @@
 package com.walking.intensive.chapter5.task19;
 
-import java.util.Arrays;
-
 public class Sphere {
     private double[] centre = new double[3];
     private double R;

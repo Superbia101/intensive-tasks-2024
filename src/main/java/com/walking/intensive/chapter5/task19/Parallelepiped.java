@@ -3,7 +3,6 @@ package com.walking.intensive.chapter5.task19;
 public class Parallelepiped {
     private double[] pointNumberOne = new double[3];
     private double[] pointNumberTwo = new double[3];
-    ;
 
     Parallelepiped(double[] coordinates1, double[] coordinates2) {
         if (coordinates1.length == 3 || coordinates2.length == 3) {
